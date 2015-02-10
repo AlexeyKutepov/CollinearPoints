@@ -29,15 +29,19 @@ public class Point implements Comparable<Point> {
 
   // slope between this point and that point
   public double slopeTo(Point that) {
-
-    return 0;
+    return (that.y - this.y)/(that.x - this.x);
   }
 
   // is this point lexicographically smaller than that one?
   // comparing y-coordinates and breaking ties by x-coordinates
   public int compareTo(Point that) {
-
-    return 0;
+    if ((this.y < that.y) || (this.y == that.y && this.x < that.x)) {
+      return -1;
+    } else if (this.y == that.y && this.x == that.x) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 
   // return string representation of this point
