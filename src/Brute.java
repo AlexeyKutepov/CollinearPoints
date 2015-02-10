@@ -3,6 +3,8 @@
  */
 public class Brute {
   public static void main(String[] args) {
+    StdDraw.setXscale(0, 32768);
+    StdDraw.setYscale(0, 32768);
     In in = new In(args[0]);
     Point[] pointList = new Point[in.readInt()];
     int x, y;
@@ -10,6 +12,7 @@ public class Brute {
       x = in.readInt();
       y = in.readInt();
       pointList[i] = new Point(x, y);
+      pointList[i].draw();
     }
     Merge.sort(pointList);
     for (int i = 0; i < pointList.length; i++) {
@@ -28,6 +31,7 @@ public class Brute {
               continue;
             } else if (pointList[i].slopeTo(pointList[k]) ==  pointList[i].slopeTo(pointList[t])) {
               StdOut.println(pointList[i].toString() + " -> " + pointList[j].toString() + " -> " + pointList[k].toString() + " -> " + pointList[t].toString());
+              pointList[i].drawTo(pointList[t]);
             }
           }
         }
