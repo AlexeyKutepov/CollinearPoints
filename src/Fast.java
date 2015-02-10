@@ -19,7 +19,7 @@ public class Fast {
       pointList[i].draw();
     }
 
-    for (int i = 0; i < pointList.length; i++) {
+    for (int i = 0; i < pointListNotSorted.length; i++) {
       Arrays.sort(pointList, pointListNotSorted[i].SLOPE_ORDER);
       int index = 0, count = 1;
       for (int j = 1; j < pointList.length; j++) {
