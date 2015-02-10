@@ -1,10 +1,12 @@
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Created by Alexey Kutepov on 10.02.15.
  */
 public class Fast {
   public static void main(String[] args) {
+    HashSet<String> hashSet = new HashSet<String>();
     StdDraw.setXscale(0, 32768);
     StdDraw.setYscale(0, 32768);
     In in = new In(args[0]);
@@ -18,20 +20,28 @@ public class Fast {
       pointListNotSorted[i] = new Point(x, y);
       pointList[i].draw();
     }
-
+    Merge.sort(pointListNotSorted);
     for (int i = 0; i < pointListNotSorted.length; i++) {
+      if (hashSet.contains(pointListNotSorted[i].toString())) {
+        continue;
+      }
       Arrays.sort(pointList, pointListNotSorted[i].SLOPE_ORDER);
-      int index = 0, count = 1;
-      for (int j = 1; j < pointList.length; j++) {
+      int index = pointList.length - 1, count = 1;
+      for (int j = pointList.length - 2; j >= 0; j--) {
         if (pointListNotSorted[i].SLOPE_ORDER.compare(pointList[index], pointList[j]) == 0) {
           count++;
-          if (count == 3) {
-            StdOut.println(pointListNotSorted[i].toString() + " -> " + pointList[index].toString() + " -> " + pointList[index+1].toString() + " -> " + pointList[index+2].toString());
-            pointListNotSorted[i].drawTo(pointList[index+count-1]);
-          } else if (count > 3) {
-            pointListNotSorted[i].drawTo(pointList[index+count-1]);
-          }
         } else {
+          if (count >= 3) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(pointListNotSorted[i].toString());
+            hashSet.add(pointListNotSorted[i].toString());
+            for (int k = index; k > index-count; k--) {
+              stringBuilder.append(" -> " + pointList[k].toString());
+              hashSet.add(pointList[k].toString());
+            }
+            StdOut.println(stringBuilder.toString());
+            pointListNotSorted[i].drawTo(pointList[index-count+1]);
+          }
           count = 1;
           index = j;
         }
