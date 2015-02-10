@@ -35,7 +35,7 @@ public class Fast {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(pointListNotSorted[i].toString());
             hashSet.add(pointListNotSorted[i].toString());
-            for (int k = index; k > index+count; k++) {
+            for (int k = index; k < index+count; k++) {
               stringBuilder.append(" -> " + pointList[k].toString());
               hashSet.add(pointList[k].toString());
             }
