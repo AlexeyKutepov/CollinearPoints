@@ -40,7 +40,14 @@ public class Point implements Comparable<Point> {
 
   // slope between this point and that point
   public double slopeTo(Point that) {
-    return ((double)that.y - (double)this.y)/((double)that.x - (double)this.x);
+    if ((that.x == this.x) && (that.y == this.y))
+      return Double.NEGATIVE_INFINITY;
+    else if (that.x == this.x)
+      return Double.POSITIVE_INFINITY;
+    else if (that.y == this.y)
+      return 0.0;
+    else
+      return (double) (that.y - this.y) / (double) (that.x - this.x);
   }
 
   // is this point lexicographically smaller than that one?
