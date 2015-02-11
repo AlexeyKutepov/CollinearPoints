@@ -7,6 +7,7 @@ import java.util.HashSet;
  * Created by Alexey Kutepov on 10.02.15.
  */
 public class Fast {
+
   public static void main(String[] args) {
     HashSet<String> hashSet = new HashSet<String>();
     StdDraw.setXscale(0, 32768);
@@ -35,19 +36,7 @@ public class Fast {
           arrayList.add(pointList[j]);
         } else {
           if (count >= 3) {
-            arrayList.add(pointListNotSorted[i]);
-            Collections.sort(arrayList);
-
-            hashSet.add(arrayList.get(0).toString());
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(arrayList.get(0).toString());
-            for (int k = 1; k < arrayList.size(); k++) {
-              stringBuilder.append(" -> " + arrayList.get(k).toString());
-              hashSet.add(arrayList.get(k).toString());
-            }
-            StdOut.println(stringBuilder.toString());
-            arrayList.get(0).drawTo(arrayList.get(arrayList.size()-1));
+            solve(arrayList, hashSet, pointListNotSorted[i]);
           }
           arrayList.clear();
           arrayList.add(pointList[j]);
@@ -55,6 +44,26 @@ public class Fast {
           index = j;
         }
       }
+      if (count >= 3) {
+        solve(arrayList, hashSet, pointListNotSorted[i]);
+      }
+      arrayList.clear();
     }
+  }
+
+  private static void solve(ArrayList<Point> arrayList, HashSet<String> hashSet, Point mainPoint) {
+    arrayList.add(mainPoint);
+    Collections.sort(arrayList);
+
+    hashSet.add(arrayList.get(0).toString());
+
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append(arrayList.get(0).toString());
+    for (int k = 1; k < arrayList.size(); k++) {
+      stringBuilder.append(" -> " + arrayList.get(k).toString());
+      hashSet.add(arrayList.get(k).toString());
+    }
+    StdOut.println(stringBuilder.toString());
+    arrayList.get(0).drawTo(arrayList.get(arrayList.size()-1));
   }
 }
